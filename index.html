@@ -3,12 +3,102 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Supply & Demand in Marine Economics - Full Version</title>
+    <title>Supply & Demand in Marine Economics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: sans-serif; margin: 0; padding: 2rem; background-color: #f0f8ff; }
+        .slide { display: none; padding: 2rem; transition: all 0.5s ease; }
+        .active { display: block; }
+        .nav { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); }
+        .btn { padding: 0.5rem 1rem; margin: 0 0.5rem; font-size: 1rem; }
+    </style>
 </head>
 <body>
+
+<div id="slide1" class="slide active">
     <h1>Supply & Demand in Marine Economics</h1>
-    <p>This is the final upload-ready version with matching filename and path.</p>
-    <!-- This should be replaced with full interactive content -->
+    <p>Understanding basic market dynamics in the context of marine resources.</p>
+</div>
+
+<div id="slide2" class="slide">
+    <h2>Supply Side: Fisheries</h2>
+    <p>Resource limitations, seasonal patterns, and environmental regulations shape the supply curve.</p>
+</div>
+
+<div id="slide3" class="slide">
+    <h2>Demand Side: Global Consumption</h2>
+    <p>Consumer demand varies with cultural, economic, and health trends.</p>
+</div>
+
+<div id="slide4" class="slide">
+    <h2>Market Equilibrium</h2>
+    <canvas id="econChart" width="400" height="200"></canvas>
+</div>
+
+<div id="slide5" class="slide">
+    <h2>Policy Implications</h2>
+    <p>Governments influence equilibrium through quotas, subsidies, and tariffs.</p>
+</div>
+
+<div class="nav">
+    <button class="btn" onclick="prevSlide()">Previous</button>
+    <button class="btn" onclick="nextSlide()">Next</button>
+</div>
+
+<script>
+    let current = 1;
+    const total = 5;
+
+    function showSlide(n) {
+        for (let i = 1; i <= total; i++) {
+            document.getElementById("slide" + i).classList.remove("active");
+        }
+        document.getElementById("slide" + n).classList.add("active");
+    }
+
+    function nextSlide() {
+        current = current < total ? current + 1 : total;
+        showSlide(current);
+    }
+
+    function prevSlide() {
+        current = current > 1 ? current - 1 : 1;
+        showSlide(current);
+    }
+
+    window.onload = function () {
+        const ctx = document.getElementById('econChart');
+        if (ctx) {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                    datasets: [
+                        {
+                            label: 'Supply',
+                            data: [30, 40, 50, 60],
+                            borderColor: 'green',
+                            fill: false
+                        },
+                        {
+                            label: 'Demand',
+                            data: [60, 50, 40, 30],
+                            borderColor: 'blue',
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+    };
+</script>
+
 </body>
 </html>
