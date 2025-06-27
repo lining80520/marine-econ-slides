@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Supply & Demand in Marine Economics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 2rem; background: #f9fcff; }
+    .slide { display: none; padding: 2rem; }
+    .slide.active { display: block; animation: fadeIn 0.5s ease; }
+    .nav { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); }
+    .btn { padding: 0.5rem 1rem; margin: 0 0.5rem; font-size: 1rem; cursor: pointer; }
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+  </style>
+</head>
+<body>
+
+<div id="slide1" class="slide active">
+  <h1>Marine Economics</h1>
+  <p>Understanding Supply & Demand in Ocean Resource Markets.</p>
+</div>
+
+<div id="slide2" class="slide">
+  <h2>Supply Dynamics</h2>
+  <p>Marine resource supply is affected by seasonal cycles, regulations, and sustainability factors.</p>
+</div>
+
+<div id="slide3" class="slide">
+  <h2>Demand Trends</h2>
+  <p>Rising consumption of seafood globally increases pressure on marine stocks.</p>
+</div>
+
+<div id="slide4" class="slide">
+  <h2>Market Equilibrium</h2>
+  <canvas id="econChart" width="400" height="200"></canvas>
+</div>
+
+<div class="nav">
+  <button class="btn" onclick="prevSlide()">Previous</button>
+  <button class="btn" onclick="nextSlide()">Next</button>
+</div>
+
+<script>
+  let current = 1;
+  const total = 4;
+
+  function showSlide(n) {
+    for (let i = 1; i <= total; i++) {
+      document.getElementById("slide" + i).classList.remove("active");
+    }
+    document.getElementById("slide" + n).classList.add("active");
+  }
+
+  function nextSlide() {
+    if (current < total) current++;
+    showSlide(current);
+  }
+
+  function prevSlide() {
+    if (current > 1) current--;
+    showSlide(current);
+  }
+
+  window.onload = function () {
+    const ctx = document.getElementById("econChart");
+    if (ctx) {
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: ["Q1", "Q2", "Q3", "Q4"],
+          datasets: [
+            {
+              label: "Supply",
+              data: [40, 50, 60, 70],
+              borderColor: "green",
+              fill: false
+            },
+            {
+              label: "Demand",
+              data: [70, 60, 50, 40],
+              borderColor: "blue",
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    }
+  };
+</script>
+
+</body>
+</html>
